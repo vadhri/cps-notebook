@@ -67,8 +67,36 @@ std::unordered_set<int> Ransac(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, int ma
 	srand(time(NULL));
 	
 	// TODO: Fill in this function
-
+	std::cout<<"Ransac (point cloud): "<<cloud->size()<<std::endl;
 	// For max iterations 
+	for (int i = 0; i < maxIterations; i++) {
+		int first_point = rand() % cloud->size();
+		int second_point = first_point;
+
+		while (second_point == first_point) {
+			second_point = rand() % cloud->size();
+		}
+		std::cout<<"Iteration : "<<i<<" "<<typeid(cloud->points[first_point]).name()<<"points = "<<first_point<<" "<<second_point<<std::endl;
+		pcl::PointXYZ P1 = cloud->points[first_point];
+		pcl::PointXYZ P2 = cloud->points[second_point];
+		
+		double A = P2.y - P1.y;
+		double B = P2.x - P1.x;
+		double C = P2.y*P1.x - P2.x*P1.y;
+		std::unordered_set<int> inliers;
+		for (int index = 0; index < cloud->points.size(); index++) {
+			pcl::PointXYZ point = cloud->points[index];
+			double distance = abs(point.x*A+point.y*B+C)/sqrt(A*A + B*B);
+			if (distance <= distanceTol) {
+				inliers.insert(index);
+			}
+		}
+
+		if (inliers.size() > inliersResult.size()) {
+			std::cout<<"Found a larger inliers set = "<<inliers.size()<<std::endl;
+			inliersResult = inliers;
+		}
+	}
 
 	// Randomly sample subset and fit line
 
@@ -78,21 +106,13 @@ std::unordered_set<int> Ransac(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, int ma
 	// Return indicies of inliers from fitted line with most inliers
 	
 	return inliersResult;
-
 }
 
 int main ()
 {
-
-	// Create viewer
 	pcl::visualization::PCLVisualizer::Ptr viewer = initScene();
-
-	// Create data
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = CreateData();
-	
-
-	// TODO: Change the max iteration and distance tolerance arguments for Ransac function
-	std::unordered_set<int> inliers = Ransac(cloud, 0, 0);
+	std::unordered_set<int> inliers = Ransac(cloud, 10, 1.0);
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr  cloudInliers(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudOutliers(new pcl::PointCloud<pcl::PointXYZ>());
@@ -106,10 +126,7 @@ int main ()
 			cloudOutliers->points.push_back(point);
 	}
 
-
-	// Render 2D point cloud with inliers and outliers
-	if(inliers.size())
-	{
+	if(inliers.size()) {
 		renderPointCloud(viewer,cloudInliers,"inliers",Color(0,1,0));
   		renderPointCloud(viewer,cloudOutliers,"outliers",Color(1,0,0));
 	}
