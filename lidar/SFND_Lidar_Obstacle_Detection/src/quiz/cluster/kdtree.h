@@ -61,7 +61,7 @@ struct KdTree
 			float y_edge = target[1]-distanceTol;
 
 			if ((node->point[0] <= x_edge+(2*distanceTol) && node->point[0] >= x_edge) && (node->point[1] <= y_edge+(2*distanceTol) && node->point[1] >= y_edge)) {
-				std::cout<<"Found a target" << (node->point[0], node->point[1])<<std::endl;
+				// std::cout<<"Found a target" << (node->point[0], node->point[1])<<std::endl;
 				ids->push_back(node->id);
 			} 
 			// else {
@@ -82,7 +82,7 @@ struct KdTree
 	{
 		std::vector<int>* ids = new std::vector<int>();
 		searchHelper(this->root, target, distanceTol, 0, ids);
-		std::cout<<"post search - ids = " << ids->size() <<std::endl;
+		// std::cout<<"post search - ids = " << ids->size() <<std::endl;
 		return *ids;
 	}
 };

@@ -69,18 +69,47 @@ void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Bo
 
 		render2DTree(node->left,viewer, lowerWindow, iteration, depth+1);
 		render2DTree(node->right,viewer, upperWindow, iteration, depth+1);
-
-
 	}
+}
 
+void proximity(int idx, 
+	std::vector<int>* cluster, 
+	std::unordered_map<int, bool>* visited, 
+	KdTree* tree, 
+	const std::vector<std::vector<float>>& points) {
+	if (!(*visited)[idx]) {		
+		std::vector<int> nearby = tree->search(points[idx],3.0);
+		// for (int p: nearby) {
+		// 	std::cout<<p<<",";
+		// }
+		// std::cout<<std::endl;
+		(*visited)[idx] = true; 
+		for(int index : nearby) {
+			cluster->push_back(index);
+			proximity(index, cluster, visited, tree, points);
+		}
+	}
 }
 
 std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
 {
+	std::vector<std::vector<int>> clusters;
 
 	// TODO: Fill out this function to return list of indices for each cluster
+	std::unordered_map<int, bool>* visited = new std::unordered_map<int, bool>();
 
-	std::vector<std::vector<int>> clusters;
+	for (int idx = 0; idx < points.size(); idx++) {
+		// for (auto it=visited->begin(); it!=visited->end(); it++) {
+		// 	cout << it->first << "-->" << it->second << endl;
+		// }
+		if (!(*visited)[idx]) {
+			std::vector<float> point =  points[idx];
+			// std::cout<<" proocessing point = "<<(point[0], point[1])<<std::endl;
+			std::vector<int>* cluster = new std::vector<int>(); 			
+			proximity(idx, cluster, visited, tree, points);
+			clusters.push_back(*cluster);
+		}
+	}
  
 	return clusters;
 
