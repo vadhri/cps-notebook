@@ -11,6 +11,4 @@ Just create a build directory, and run the following commands.
 
 The output video would look like the one below.
 
-<p>
-<video src="output.mp4" width="700" height="400" />
-
+[![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://github.com/vadhri/sensor-fusion/blob/main/lidar/SFND_Lidar_Obstacle_Detection/output.mp4)
