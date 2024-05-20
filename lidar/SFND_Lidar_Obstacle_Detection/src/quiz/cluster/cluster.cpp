@@ -141,11 +141,11 @@ int main ()
   	int it = 0;
   	render2DTree(tree->root,viewer,window, it);
   
-  	std::cout << "Test Search" << std::endl;
+  	// std::cout << "Test Search" << std::endl;
   	std::vector<int> nearby = tree->search({-6,7},3.0);
   	for(int index : nearby)
-      std::cout << index << ",";
-  	std::cout << std::endl;
+    //   std::cout << index << ",";
+  	// std::cout << std::endl;
 
   	// Time segmentation process
   	auto startTime = std::chrono::steady_clock::now();
