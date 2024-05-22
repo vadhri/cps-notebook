@@ -10,8 +10,7 @@
 // Arguments:
 // window is the region to draw box around
 // increase zoom to see more of the area
-pcl::visualization::PCLVisualizer::Ptr initScene(Box window, int zoom)
-{
+pcl::visualization::PCLVisualizer::Ptr initScene(Box window, int zoom) {
 	pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer ("2D Viewer"));
 	viewer->setBackgroundColor (0, 0, 0);
   	viewer->initCameraParameters();
@@ -26,27 +25,24 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData(std::vector<std::vector<float>> p
 {
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
   	
-  	for(int i = 0; i < points.size(); i++)
-  	{
+  	for(int i = 0; i < points.size(); i++) {
   		pcl::PointXYZ point;
   		point.x = points[i][0];
   		point.y = points[i][1];
   		point.z = 0;
 
   		cloud->points.push_back(point);
-
   	}
+
   	cloud->width = cloud->points.size();
   	cloud->height = 1;
 
   	return cloud;
-
 }
 
 
 void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Box window, int& iteration, uint depth=0)
 {
-
 	if(node!=NULL)
 	{
 		Box upperWindow = window;
@@ -79,11 +75,8 @@ void proximity(int idx,
 	const std::vector<std::vector<float>>& points) {
 	if (!(*visited)[idx]) {		
 		std::vector<int> nearby = tree->search(points[idx],3.0);
-		// for (int p: nearby) {
-		// 	std::cout<<p<<",";
-		// }
-		// std::cout<<std::endl;
 		(*visited)[idx] = true; 
+
 		for(int index : nearby) {
 			cluster->push_back(index);
 			proximity(index, cluster, visited, tree, points);
@@ -94,17 +87,12 @@ void proximity(int idx,
 std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
 {
 	std::vector<std::vector<int>> clusters;
-
-	// TODO: Fill out this function to return list of indices for each cluster
 	std::unordered_map<int, bool>* visited = new std::unordered_map<int, bool>();
 
 	for (int idx = 0; idx < points.size(); idx++) {
-		// for (auto it=visited->begin(); it!=visited->end(); it++) {
-		// 	cout << it->first << "-->" << it->second << endl;
-		// }
+
 		if (!(*visited)[idx]) {
 			std::vector<float> point =  points[idx];
-			// std::cout<<" proocessing point = "<<(point[0], point[1])<<std::endl;
 			std::vector<int>* cluster = new std::vector<int>(); 			
 			proximity(idx, cluster, visited, tree, points);
 			clusters.push_back(*cluster);
@@ -112,7 +100,6 @@ std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<flo
 	}
  
 	return clusters;
-
 }
 
 int main ()

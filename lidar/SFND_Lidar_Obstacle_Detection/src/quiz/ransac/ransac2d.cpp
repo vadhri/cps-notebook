@@ -72,38 +72,48 @@ std::unordered_set<int> Ransac(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, int ma
 	for (int i = 0; i < maxIterations; i++) {
 		int first_point = rand() % cloud->size();
 		int second_point = first_point;
-
+		int third_point = first_point;
+		
 		while (second_point == first_point) {
 			second_point = rand() % cloud->size();
 		}
-		std::cout<<"Iteration : "<<i<<" "<<typeid(cloud->points[first_point]).name()<<"points = "<<first_point<<" "<<second_point<<std::endl;
+
+		while (second_point == first_point && third_point == first_point) {
+			third_point = rand() % cloud->size();
+		}
+
+		std::cout<<"Iteration : "<<i<<" "<<typeid(cloud->points[first_point]).name()<<"points = "<<first_point<<" "<<second_point<<" "<<third_point<<std::endl;
 		pcl::PointXYZ P1 = cloud->points[first_point];
 		pcl::PointXYZ P2 = cloud->points[second_point];
+		pcl::PointXYZ P3 = cloud->points[third_point];
 		
-		double A = P2.y - P1.y;
-		double B = P2.x - P1.x;
-		double C = P2.y*P1.x - P2.x*P1.y;
+		double A1 = P2.x - P1.x;
+		double B1 = P2.y - P1.y;
+		double C1 = P2.z - P1.z;
+		
+		double A2 = P3.x - P1.x;
+		double B2 = P3.y - P1.y;
+		double C2 = P3.z - P1.z; 
+
+		double A = A1 * A2; 
+		double B = B1 * B2; 
+		double C = C1 * C2;
+
+		double D = -1 * (A*P1.x + B*P1.y + C*P1.z); 
+		
 		std::unordered_set<int> inliers;
 		for (int index = 0; index < cloud->points.size(); index++) {
 			pcl::PointXYZ point = cloud->points[index];
-			double distance = abs(point.x*A+point.y*B+C)/sqrt(A*A + B*B);
+			double distance = abs(point.x*A+point.y*B+point.z*C+D)/sqrt(A*A + B*B + C*C);
 			if (distance <= distanceTol) {
 				inliers.insert(index);
 			}
 		}
 
 		if (inliers.size() > inliersResult.size()) {
-			std::cout<<"Found a larger inliers set = "<<inliers.size()<<std::endl;
 			inliersResult = inliers;
 		}
 	}
-
-	// Randomly sample subset and fit line
-
-	// Measure distance between every point and fitted line
-	// If distance is smaller than threshold count it as inlier
-
-	// Return indicies of inliers from fitted line with most inliers
 	
 	return inliersResult;
 }
