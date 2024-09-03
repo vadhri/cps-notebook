@@ -85,6 +85,9 @@
         "typeindex": "cpp",
         "text_encoding": "cpp",
         "core": "cpp",
-        "numericaldiff": "cpp"
-    }
+        "numericaldiff": "cpp",
+        "execution": "cpp"
+    },
+    "cmake.configureOnOpen": false,
+    "cmake.sourceDirectory": "/Users/venkat/Documents/GitHub/sensor-fusion/lidar/SFND_Lidar_Obstacle_Detection"
 }
