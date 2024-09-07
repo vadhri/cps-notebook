@@ -12,3 +12,6 @@ The variables contain the state of the system with the following.
 |x2|Vertical position|''|
 |x3|Angle between Orientation of the vehicle with horizontal axis|''|
 
+**Constant time simulation model**
+
+The variables are the same as above but the simuation is done using continous time plant.
