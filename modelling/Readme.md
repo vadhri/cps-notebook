@@ -2,7 +2,7 @@ This folder contains model simulations for cyber physical systems.
 
 **Discrete time simulation model**
 
-The variables contain the state of the system with the following. 
+The variables contain the state of the system for for Ground vehicle simulation with the following. 
 
 |Variable|Description|Represention in model|
 |-|-|-|
@@ -14,4 +14,4 @@ The variables contain the state of the system with the following.
 
 **Constant time simulation model**
 
-The variables are the same as above but the simuation is done using continous time plant.
+The variables are the same as above but the simuation is done using continous time plant for Ground vehicle simulation.
