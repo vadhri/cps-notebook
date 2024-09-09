@@ -34,3 +34,8 @@ The following graph is an example simulation for the values below.
 - vTdelta = 20;
 
 ![alt text](ContinousTime-RoomTemperature/Output.jpg "Room temperature movement ")
+
+**Finite states model**
+For a model that has finite states, the movement between states can be done with the logic representing a truth table. 
+
+![alt text](./FiniteStates/StateJump.jpg "Finite states movement.")
