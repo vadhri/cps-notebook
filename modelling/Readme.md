@@ -43,3 +43,11 @@ For a model that has finite states, the movement between states can be done with
 The following plot is an example where the temperature influences the heat source on or off. 
 
 ![alt text](./FSM-RoomTemperature/RoomTemperature.jpg "Finite states movement - Room temperature")
+
+**Constant time model for temperature in a room with FSM control of temperature**
+
+For a change in temperature, Tdot represented by the formula below, simulate the model with FSM coupled with HSu.
+
+$ Tdot = -a*x + Tr + (Tdelta*u); $
+
+![alt text](./FSM-Limit-RoomTemperature/Temp-Limit-Source-FSM.fig "Finite states movement - Room temperature with source on/off.")
