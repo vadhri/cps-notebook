@@ -39,3 +39,7 @@ The following graph is an example simulation for the values below.
 For a model that has finite states, the movement between states can be done with the logic representing a truth table. 
 
 ![alt text](./FiniteStates/StateJump.jpg "Finite states movement.")
+
+The following plot is an example where the temperature influences the heat source on or off. 
+
+![alt text](./FSM-RoomTemperature/RoomTemperature.jpg "Finite states movement - Room temperature")
