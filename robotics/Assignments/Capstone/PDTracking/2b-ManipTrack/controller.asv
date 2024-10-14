@@ -1,0 +1,30 @@
+
+function u = controller(params, t, X)
+  u=[0; 0];
+  % 1. write out the forward kinematics, such that p = FK(theta1, theta2)
+  kp = 800;
+  kd = 5;
+
+  theta1 = X(1);
+  theta2 = X(2);
+  dt1 = X(3);
+  dt2 = X(4);
+
+  l = params.l;
+
+  syms P(t1,t2); 
+  P(t1, t2) = [l*cos(t1)+l*cos(t1 + t2);l*sin(t1)+l*sin(t1+t2)];
+
+  % 2. Let e = p - params.traj(t) be the task-space error
+  e = Pval - params.traj(t);
+
+  % 3. Calculate the manipulator Jacobian J = d p / d theta
+  jacob = jacobian(P, [t1, t2]);
+  J = subs(jacob, t1, theta1);
+  J = subs(J, t2, theta2);
+  
+  % 4. Use a "natural motion" PD controller, u = - kp * J^T * e - kd * [dth1; dth2]
+  u = -kp*J'*e - kd*[dt1; dt2];
+
+end
+
