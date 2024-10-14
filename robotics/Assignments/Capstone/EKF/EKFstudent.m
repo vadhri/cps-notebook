@@ -28,7 +28,6 @@ function xhat = EKFstudent(t, z)
           -sind(xhat(1,k-1)) 0 ; 
           0 1];
 
-
       K = P*H'*inv(H*P*H'+R);
       xhat(:,k) = xhat(:,k) + K*(z(:,k) - h);
 

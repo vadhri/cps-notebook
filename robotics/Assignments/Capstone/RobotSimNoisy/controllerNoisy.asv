@@ -1,0 +1,67 @@
+function u = controller(params, t, obs)  
+    persistent newstate;
+    persistent time;
+    xhat = EKFupdate(params, t, obs);
+    phi = xhat(1);
+    phidot = xhat(2);
+
+    kp=100;
+    kd=10;
+    ki=1000;
+
+    if isempty(newstate)
+        newstate = 0
+    end
+    
+    if isempty(time)
+        time = 0
+    end
+
+    dt = t - time;
+    time = t;
+    
+    newstate=newstate+(0-phi*dt);
+    
+    u=-1*(kp*(0-phi) + kd*(0-phidot) + ki*(newstate));
+end
+
+function xhatOut = EKFupdate(params, t, z)
+  persistent P xhat time2 k
+  if isempty(P)
+    P=1e3*eye(2);
+    xhat = zeros(2,length(t));
+    time2 = t;
+    k = 1;
+  end
+
+  k = k+1;
+  Q = diag([30, 1]);
+  R = diag([1 1 1]);
+  D = 0.5; 
+
+  % time diff with previous sample. 
+  dt = t(k)-t(k-1);
+  
+  A = [1 dt; 
+      0 1];
+
+  % cmpute xhat
+  xhat(:,k) = A*xhat(:, k-1);
+
+  P = A*P*A'+Q;
+
+  h = [sind(xhat(1,k-1)); 
+      cosd(xhat(1,k-1)); 
+      xhat(2,k-1)];
+
+  H = D*[cosd(xhat(1,k-1)) 0; 
+      -sind(xhat(1,k-1)) 0 ; 
+      0 1];
+
+  K = P*H'*inv(H*P*H'+R);
+  xhat(:,k) = xhat(:,k) + K*(z(:,k) - h);
+
+  P = (eye(2)-K*H)*P;
+  xhatOut = xhat(:, k);  
+end
+
