@@ -143,7 +143,7 @@ def calculateCSCTrajectory(x1, x2, xc1, xc2, y1, y2, yc1, yc2, psi1, psi2, R, tu
         if psiD > np.pi:
             psiD = psiL - 2*np.pi
     elif turnType == "RSL":
-        psiD = psiL - atan2(2*R/Stan)
+        psiD = psiL - atan2(2*R, Stan)
         if psiD < -np.pi:
             psiD = 2 * pi - abs(psiD)
 
