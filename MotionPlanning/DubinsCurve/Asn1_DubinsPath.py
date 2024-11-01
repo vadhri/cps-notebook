@@ -18,7 +18,7 @@ acos = math.acos
 
 #return Dubin's path
 def returnDubinsPath(x1, y1, psi1, x2, y2, psi2, R):
-    print ([x1, y1, psi1], [x2, y2, psi2], R)
+    #print([x1, y1, psi1], [x2, y2, psi2], R)
     #find turn types (RSL, LSR, RSR, or LSL)
 
     u_vec1 = np.array([cos(psi1), sin(psi1)])
@@ -26,34 +26,34 @@ def returnDubinsPath(x1, y1, psi1, x2, y2, psi2, R):
     u_vec2 = u_vec2/norm(u_vec2)
     u_vec3 = np.array([cos(psi2), sin(psi2)])
     
-    print ("\n--> Step 1: frm U1, U2, U3 vectors")
-    print (u_vec1)
-    print (u_vec2)
-    print (u_vec3)
+    #print("\n--> Step 1: frm U1, U2, U3 vectors")
+    #print(u_vec1)
+    #print(u_vec2)
+    #print(u_vec3)
 
     #TODO: update cp1 = cross product of u_vec1, u_vec2
     #TODO: update cp2 = cross product of u_vec2 and u_vec3
     cp1 = np.dot(u_vec1, u_vec2)
     cp2 = np.dot(u_vec2, u_vec3)
     
-    print ("\n--> Step 2: Find cross product")
-    print ("cp1=", cp1)
-    print ("cp2=", cp2)
+    #print("\n--> Step 2: Find cross product")
+    #print("cp1=", cp1)
+    #print("cp2=", cp2)
 
     #DONE------------
     sigma1, sigma2, turnType = findCSCTurnType(cp1, cp2)
 
-    print ("\n--> Step 3: Identify turn type and Sigma values")
-    print ("turnType = ", turnType)
-    print ("sigma1 =", sigma1)
-    print ("sigma2 =", sigma2)
+    #print("\n--> Step 3: Identify turn type and Sigma values")
+    #print("turnType = ", turnType)
+    #print("sigma1 =", sigma1)
+    #print("sigma2 =", sigma2)
 
     xc1, yc1 = returnCircleCenter(x1, y1, psi1, sigma1, R)
     xc2, yc2 = returnCircleCenter(x2, y2, psi2, sigma2, R)
-    print ("\n--> Step 4: Find circle centers")
-    print ("(xc1, yc1)=", [xc1, yc1])
-    print ("(xc2, yc2)=",[xc2, yc2])
-    print ("Distance between centers, D = ", distance(xc1, xc2, yc1, yc2), " ;3*R= ", 3*R)
+    #print("\n--> Step 4: Find circle centers")
+    #print("(xc1, yc1)=", [xc1, yc1])
+    #print("(xc2, yc2)=",[xc2, yc2])
+    #print("Distance between centers, D = ", distance(xc1, xc2, yc1, yc2), " ;3*R= ", 3*R)
 
     #DONE------------
     if distance(xc1, xc2, yc1, yc2) >= 3*R:
@@ -139,16 +139,16 @@ def calculateCSCTrajectory(x1, x2, xc1, xc2, y1, y2, yc1, yc2, psi1, psi2, R, tu
         psiD = psiL
     elif turnType == "LSR":
         #TODO: adjust psiD and if it exceeds pi, then reset psiD by subtracting 2pi, delete "pass"
-        psiD = psiL + atan2(2*R, Stan)
+        psiD = psiL + atan(2*R/Stan)
         if psiD > np.pi:
-            psiD = psiL - 2*np.pi
+            psiD = psiD - 2*np.pi
     elif turnType == "RSL":
-        psiD = psiL - atan2(2*R, Stan)
+        psiD = psiL - atan(2*R/Stan)
         if psiD < -np.pi:
             psiD = 2 * pi - abs(psiD)
 
     Sstr = np.sqrt(Stan**2 + 4*R**2)
-    print ("\n--> Step 5: calculateCSCTrajectory psiD, ", psiD, (turnType, Sstr))
+    #print("\n--> Step 5: calculateCSCTrajectory psiD, ", psiD, (turnType, Sstr))
     #initialize path distance
     pathDistance = 0
         
@@ -259,7 +259,7 @@ def calculateCCCTrajectory(x1, x2, xc1, xc2, y1, y2, yc1, yc2, R, sigma1, sigma2
     while distance(xtrajectory[-1], xci, ytrajectory[-1], yci) > 3:  
         #TODO: update Mci using sigma2 in opposite direction (0.1 rad intervals), vec2 (vector from <xc3, yc3> to latest point of xy_trajectory), and xnew, ynew
         Mci = np.array([[cos(0.1),sigma2*sin(0.1)],[-sigma2*sin(0.1),cos(0.1)]])
-        vec2 = np.array([xtrajectory[-1] - xc3[0]],[ytrajectory[-1] - yc3[0]])
+        vec2 = np.array([[xtrajectory[-1] - xc3[0]],[ytrajectory[-1] - yc3[0]]])
         [xnew, ynew] = Mci @ vec2 + np.array([[xc3[0]],[yc3[0]]])
         #TODO: append xnew, ynew to xy_trajectory, add 0.1*R to path distance
         xtrajectory.append(xnew[0])
@@ -273,12 +273,13 @@ def calculateCCCTrajectory(x1, x2, xc1, xc2, y1, y2, yc1, yc2, R, sigma1, sigma2
     while distance(xtrajectory[-1], x2, ytrajectory[-1], y2) > 3:  
         #TODO: update Mc3 using sigma1 (0.1 rad intervals), vec3 (vector from <xc2, yc2> to latest xy_trajectory), and xnew, ynew
         Mc3 = np.array([[cos(0.1),-sigma1*sin(0.1)],[sigma1*sin(0.1),cos(0.1)]])
-        vec3 = np.array([xtrajectory[-1] - xc2],[ytrajectory[-1] - yc2])
+        vec3 = np.array([[xtrajectory[-1] - xc2],[ytrajectory[-1] - yc2]])
         [xnew, ynew] = Mc3 @ vec3 + np.array([[xc2],[yc2]])
         #TODO: append xnew, ynew to xy_trajectory, add 0.1*R to path distance
         xtrajectory.append(xnew[0])
         ytrajectory.append(ynew[0])
         pathDistance = pathDistance + 0.1*R
+
     xtrajectory.append(x2)
     ytrajectory.append(y2)
         
