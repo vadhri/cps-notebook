@@ -13,3 +13,7 @@ Motion Planning for Nonholonomic vehicles
 ![Dubins RRT*](./RRT_StarWithDubinsCurve.gif)
 
 [MotionPlanning/DubinsCurve/Asn3_RRTStarDubins.py](./DubinsCurve/Asn3_RRTStarDubins.py)
+
+![Dubins RRT* with restricted path - driving](./DubinsPath-RestrictedPath-Driving.gif)
+
+[MotionPlanning/DubinsCurve/Asn4_RRTDubinsDriving.py](./DubinsCurve/Asn4_RRTDubinsDriving.py)
