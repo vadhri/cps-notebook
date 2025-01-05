@@ -1,3 +1,6 @@
-The project is part 1 of the ROS basics material from The construct. 
+The project is part 1 of the ROS basics material from TheConstruct. 
 
-![](./r.mp4)
+
+
+https://github.com/user-attachments/assets/38b66258-432f-40ac-99c1-c36ed309bf3a
+
