@@ -4,6 +4,9 @@ The following is the list of examples that are in the repo.
 |-|-|-|
 |Create package and subscribe|A simple ros package that communciates with the nav_msg to get the moving robot position|./basic_nav/|
 |Wall following robot|A simple program run that guides a robot based on distance calcuated from lightrays. | ./wall-follwing/ |
+|Services|Use of interfaces, services and clients in Ros2 | ./executors_exercises_pkg/ |
+|Executors|Demonstration of differennt types of executors | ./services_quiz* |
+|Find wall and follow|Find wall based on simple obstruction detection, align and move along. | ./wall-following-with-wall-detection |
 
 Commands
 
