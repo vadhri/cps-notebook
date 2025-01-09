@@ -7,7 +7,7 @@ The following is the list of examples that are in the repo.
 |Services|Use of interfaces, services and clients in Ros2 | ./executors_exercises_pkg/ |
 |Executors|Demonstration of differennt types of executors | ./services_quiz* |
 |Find wall and follow|Find wall based on simple obstruction detection, align and move along. | ./wall-following-with-wall-detection |
-
+|Actions|Odometer distance calc with example usage of actions| ./actions/|
 Commands
 
 cd ~/ros2_ws
