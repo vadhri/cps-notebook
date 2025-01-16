@@ -8,6 +8,9 @@ The following is the list of examples that are in the repo.
 |Executors|Demonstration of differennt types of executors | ./services_quiz* |
 |Find wall and follow|Find wall based on simple obstruction detection, align and move along. | ./wall-following-with-wall-detection |
 |Actions|Odometer distance calc with example usage of actions| ./actions/|
+|URDF|Examples of various robot models| <ul><li>Fixed joint robot</li><ul> | ./simple |
+
+
 Commands
 
 cd ~/ros2_ws
