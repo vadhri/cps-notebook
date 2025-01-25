@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+  <link name="chassis2">
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00011075895833333336" ixy="0" ixz="0" iyy="0.00011075895833333336" iyz="0" izz="0.00022057291666666671"/>
+    </inertial>
+
+    <collision>
+      <geometry>
+        <box size="0.1375 0.1375 0.009"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <geometry>
+        <box size="0.1375 0.1375 0.009"/>
+      </geometry>
+      <material name="box_bot_blue"/>
+    </visual>
+  </link>
+  <joint name="chasis_1_to_chasis_2" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0405" />
+    <parent link="chassis1" />
+    <child link="chassis2" />
+  </joint>
+
+
+  <link name="spacer_chasis_3_01">
+  <inertial>
+    <mass value="0.009"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="0" ixy="1.5749999999999997e-06" ixz="0"
+             iyy="0" iyz="0"
+             izz="1.125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.045"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.045"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_3_01" type="fixed">
+  <origin rpy="0 0 0" xyz="0.06375 -0.025875 0.01825" />
+  <parent link="chassis2" />
+  <child link="spacer_chasis_3_01" />
+</joint>
+
+  <link name="spacer_chasis_3_02">
+  <inertial>
+    <mass value="0.009"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="0" ixy="1.5749999999999997e-06" ixz="0"
+             iyy="0" iyz="0"
+             izz="1.125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.045"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.045"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_3_02" type="fixed">
+  <origin rpy="0 0 0" xyz="0.06375 0.025875 0.01825" />
+  <parent link="chassis2" />
+  <child link="spacer_chasis_3_02" />
+</joint>
+
+  <link name="spacer_chasis_3_03">
+  <inertial>
+    <mass value="0.009"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="0" ixy="1.5749999999999997e-06" ixz="0"
+             iyy="0" iyz="0"
+             izz="1.125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.045"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.045"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_3_03" type="fixed">
+  <origin rpy="0 0 0" xyz="-0.06375 -0.06375 0.01825" />
+  <parent link="chassis2" />
+  <child link="spacer_chasis_3_03" />
+</joint>
+
+  <link name="spacer_chasis_3_04">
+  <inertial>
+    <mass value="0.009"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="0" ixy="1.5749999999999997e-06" ixz="0"
+             iyy="0" iyz="0"
+             izz="1.125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.045"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.045"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_3_04" type="fixed">
+  <origin rpy="0 0 0" xyz="-0.06375 0.06375 0.01825" />
+  <parent link="chassis2" />
+  <child link="spacer_chasis_3_04" />
+</joint>
+
+<link name="rsb_board">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <mass value="0.050"/>
+    <inertia ixx="3.5310093750000004e-05" ixy="0" ixz="0"
+             iyy="1.5576760416666668e-05" iyz="0"
+             izz="4.7766666666666664e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.058 0.090 0.01935"/>
+    </geometry>
+    <material name="default_material"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.058 0.090 0.01935"/>
+    </geometry>
+  </collision>
+</link>
+
+    <gazebo reference="rsb_board">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="chassis">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="chassis2">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="rsb_01_to_controlboard">
+        <material>Gazebo/Gray</material>
+    </gazebo>
+
+  <joint name="rsb_board_to_chasis_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0225" />
+    <parent link="chassis2" />
+    <child link="rsb_board" />
+  </joint>
+
+  <link name="rsb_mount_01">
+  <inertial>
+  <origin xyz="0 0 0" />
+  <mass value="0.005" />
+  <inertia 
+      ixx="8.333333333333334e-08" ixy="0.0" ixz="0.0"
+      iyy="6.376468333333333e-07" iyz="0.0" 
+      izz="6.376468333333333e-07" />
+</inertial>
+
+<collision>
+  <origin xyz="0 0 0" />
+  <geometry>
+    <box size="0.03782 0.010 0.010" />
+  </geometry>
+</collision>
+
+    <visual>
+    <geometry>
+        <box size="0.03782 0.010 0.010" />
+    </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+  <joint name="rsb_01_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01009 0.0325 0.0095" />
+    <parent link="chassis2" />
+    <child link="rsb_mount_01" />
+  </joint>
+
+  <link name="rsb_mount_02">
+  <inertial>
+  <origin xyz="0 0 0" />
+  <mass value="0.005" />
+  <inertia 
+      ixx="8.333333333333334e-08" ixy="0.0" ixz="0.0"
+      iyy="6.376468333333333e-07" iyz="0.0" 
+      izz="6.376468333333333e-07" />
+</inertial>
+
+<collision>
+  <origin xyz="0 0 0" />
+  <geometry>
+    <box size="0.03782 0.010 0.010" />
+  </geometry>
+</collision>
+
+    <visual>
+    <geometry>
+        <box size="0.03782 0.010 0.010" />
+    </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+  <joint name="rsb_02_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01009 0.0325 0.0095" />
+    <parent link="chassis2" />
+    <child link="rsb_mount_02" />
+  </joint>
+
+  <link name="rsb_mount_03">
+  <inertial>
+  <origin xyz="0 0 0" />
+  <mass value="0.005" />
+  <inertia 
+      ixx="8.333333333333334e-08" ixy="0.0" ixz="0.0"
+      iyy="6.376468333333333e-07" iyz="0.0" 
+      izz="6.376468333333333e-07" />
+</inertial>
+
+<collision>
+  <origin xyz="0 0 0" />
+  <geometry>
+    <box size="0.03782 0.010 0.010" />
+  </geometry>
+</collision>
+
+    <visual>
+    <geometry>
+        <box size="0.03782 0.010 0.010" />
+    </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+  <joint name="rsb_03_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01009 -0.0325 0.0095" />
+    <parent link="chassis2" />
+    <child link="rsb_mount_03" />
+  </joint>
+
+  <link name="rsb_mount_04">
+  <inertial>
+  <origin xyz="0 0 0" />
+  <mass value="0.005" />
+  <inertia 
+      ixx="8.333333333333334e-08" ixy="0.0" ixz="0.0"
+      iyy="6.376468333333333e-07" iyz="0.0" 
+      izz="6.376468333333333e-07" />
+</inertial>
+
+<collision>
+  <origin xyz="0 0 0" />
+  <geometry>
+    <box size="0.03782 0.010 0.010" />
+  </geometry>
+</collision>
+
+    <visual>
+    <geometry>
+        <box size="0.03782 0.010 0.010" />
+    </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+  <joint name="rsb_04_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01009 -0.0325 0.0095" />
+    <parent link="chassis2" />
+    <child link="rsb_mount_04" />
+  </joint>
+
+
+</robot>

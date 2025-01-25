@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<robot name="urdfbot">
+	<link name="base_link">
+		<visual>
+            <origin xyz="0 0 0.5" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 1"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="arm21">
+		<visual>
+			<origin xyz="0 0 0.1" rpy="0 0 0"/>
+			<geometry>
+				<sphere radius="0.0.75"/>
+			</geometry>
+		</visual>
+	</link>
+    	<link name="arm21_extend">
+		<visual>
+			<origin xyz="0 0 0.5" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 1"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="arm22">
+		<visual>
+			<origin xyz="0 0 0.1" rpy="0 0 0"/>
+			<geometry>
+				<sphere radius="0.0.75"/>
+			</geometry>
+		</visual>
+	</link>
+    	<link name="arm22_extend">
+		<visual>
+			<origin xyz="0 0 0.5" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 1"/>
+			</geometry>
+		</visual>
+	</link>    
+	<joint name="base_link_to_arm21_joint" type="revolute">
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="arm21"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" velocity="1.0" lower="-1.57" upper="1.57"/>
+	</joint>
+	<joint name="arm21_to_extend_joint" type="fixed">
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <parent link="arm21"/>
+        <child link="arm21_extend"/>
+        <axis xyz="1 0 0"/>
+	</joint>    
+	<joint name="base_link_to_arm22_joint" type="revolute">
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <parent link="arm21_extend"/>
+        <child link="arm22"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="1.0" lower="-1.57" upper="1.57"/>
+	</joint>
+	<joint name="arm22_to_extend_joint" type="fixed">
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <parent link="arm22"/>
+        <child link="arm22_extend"/>
+        <axis xyz="1 0 0"/>
+	</joint>        
+    
+</robot>
