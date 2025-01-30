@@ -1,0 +1,584 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<gazebo reference="spacer_chasis_1_01">
+    <material>Gazebo/Orange</material>
+</gazebo>   
+
+<gazebo reference="spacer_chasis_1_02">
+    <material>Gazebo/Orange</material>
+</gazebo>   
+
+<gazebo reference="spacer_chasis_1_03">
+    <material>Gazebo/Orange</material>
+</gazebo>   
+
+<gazebo reference="spacer_chasis_1_04">
+    <material>Gazebo/Orange</material>
+</gazebo>   
+
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+  <link name="chassis">
+    <inertial>
+        <mass value="0.035"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="5.537947916666668e-05" ixy="0" ixz="0" iyy="5.537947916666668e-05" iyz="0" izz="0.00011028645833333336"/>
+    </inertial>
+
+    <collision>
+      <geometry>
+        <box size="0.1375 0.1375 0.009"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <geometry>
+        <box size="0.1375 0.1375 0.009"/>
+      </geometry>
+      <material name="box_bot_blue"/>
+    </visual>
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="base_link" />
+    <child link="chassis" />
+  </joint>
+
+  <!-- Drive motor - 46.5mm x 34mm x 28.5mm -->
+  <link name="drive_motor_1">
+
+ <inertial>
+    <mass value="0.050"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="8.201041666666668e-06" ixy="0" ixz="0"
+             iyy="1.239375e-05" iyz="0"
+             izz="1.3826041666666666e-05"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <box size="0.0465 0.034 0.0285"/> <!-- Width, Depth, Height -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision box is aligned with the link's frame -->
+  </collision>
+
+    <visual>
+      <geometry>
+        <box size="0.0465 0.034 0.0285"/>
+      </geometry>
+      <material name="drive_motor"/>
+    </visual>
+  </link>
+
+<joint name="chasis_left_drive_motor" type="fixed">
+  <origin rpy="0 0 0" xyz="0.0455 0.05175 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_motor_1" />
+</joint>
+
+  <link name="drive_motor_2">
+ <inertial>
+    <mass value="0.050"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="8.201041666666668e-06" ixy="0" ixz="0"
+             iyy="1.239375e-05" iyz="0"
+             izz="1.3826041666666666e-05"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <box size="0.0465 0.034 0.0285"/> <!-- Width, Depth, Height -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision box is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <box size="0.0465 0.034 0.0285"/>
+      </geometry>
+      <material name="drive_motor"/>
+    </visual>
+  </link>
+
+<joint name="chasis_right_drive_motor" type="fixed">
+  <origin rpy="0 0 0" xyz="0.0455 -0.05175 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_motor_2" />
+</joint>
+
+  <link name="battery">
+  <!-- Inertial Block -->
+  <inertial>
+    <mass value="0.2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="3.302083333333334e-05" ixy="0" ixz="0"
+             iyy="0.00017927083333333337" iyz="0"
+             izz="0.00018708333333333337"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <box size="0.1 0.035 0.0275"/> <!-- Width, Depth, Height -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision box is aligned with the link's frame -->
+  </collision>
+
+    <visual>
+      <geometry>
+        <box size="0.100 0.035 0.0275"/>
+      </geometry>
+      <material name="battery"/>
+    </visual>
+  </link>
+
+<joint name="chasis_battery" type="fixed">
+  <origin rpy="0 0 0" xyz="0.01875 0 0.01825" />
+  <parent link="chassis" />
+  <child link="battery" />
+</joint>
+
+
+  <link name="spacer_chasis_1_01">
+  <inertial>
+    <mass value="0.007"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+<inertia ixx="7.583333e-07" ixy="0.0" ixz="0.0"
+             iyy="7.583333e-07" iyz="0.0" izz="8.750000e-08"/> <!-- Moments of inertia -->
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.035"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>  
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.035"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_1_01" type="fixed">
+  <origin rpy="0 0 0" xyz="0.06375 -0.025875 0.01825" />
+  <parent link="chassis" />
+  <child link="spacer_chasis_1_01" />
+</joint>
+
+ <link name="spacer_chasis_1_02">
+   <inertial>
+    <mass value="0.007"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+<inertia ixx="7.583333e-07" ixy="0.0" ixz="0.0"
+             iyy="7.583333e-07" iyz="0.0" izz="8.750000e-08"/> <!-- Moments of inertia -->
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.035"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.035"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_1_02" type="fixed">
+  <origin rpy="0 0 0" xyz="0.06375 0.025875 0.01825" />
+  <parent link="chassis" />
+  <child link="spacer_chasis_1_02" />
+</joint>
+
+ <link name="spacer_chasis_1_03">
+   <inertial>
+    <mass value="0.007"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+<inertia ixx="7.583333e-07" ixy="0.0" ixz="0.0"
+             iyy="7.583333e-07" iyz="0.0" izz="8.750000e-08"/> <!-- Moments of inertia -->
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.035"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.035"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+<joint name="chasis_spacer_chasis_1_03" type="fixed">
+  <origin rpy="0 0 0" xyz="-0.06375 -0.06375 0.01825" />
+  <parent link="chassis" />
+  <child link="spacer_chasis_1_03" />
+</joint>
+
+
+ <link name="spacer_chasis_1_04">
+   <inertial>
+    <mass value="0.007"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+<inertia ixx="7.583333e-07" ixy="0.0" ixz="0.0"
+             iyy="7.583333e-07" iyz="0.0" izz="8.750000e-08"/> <!-- Moments of inertia -->
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.005" length="0.035"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="0.035"/>
+      </geometry>
+      <material name="spacer_35mm"/>
+    </visual>
+  </link>
+
+
+<joint name="chasis_spacer_chasis_1_04" type="fixed">
+  <origin rpy="0 0 0" xyz="-0.06375 0.06375 0.01825" />
+  <parent link="chassis" />
+  <child link="spacer_chasis_1_04" />
+</joint>
+
+ <link name="drive_wheel_axel_l">
+  <!-- Inertial Block -->
+  <inertial>
+    <mass value="0.010"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="3.892583333333333e-07" ixy="0" ixz="0"
+             iyy="3.892583333333333e-07" iyz="0"
+             izz="6.328125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.01125" length="0.00935"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision>
+
+    <visual>
+      <geometry>
+        <cylinder radius="0.01125" length="0.00935" />
+      </geometry>
+      <material name="wheel_axel"/>
+    </visual>
+  </link>
+
+<joint name="drive_wheel_to_axel_l" type="fixed">
+  <origin rpy="1.57 0 0" xyz="0.05175 -0.073425 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_wheel_axel_l" />
+</joint>
+
+ <link name="drive_wheel_axel_r">
+  <!-- Inertial Block -->
+  <inertial>
+    <mass value="0.010"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Center of mass assumed at the origin -->
+    <inertia ixx="3.892583333333333e-07" ixy="0" ixz="0"
+             iyy="3.892583333333333e-07" iyz="0"
+             izz="6.328125e-07"/>
+  </inertial>
+
+  <!-- Collision Block -->
+  <collision>
+    <geometry>
+      <cylinder radius="0.01125" length="0.00935"/> <!-- Radius and Height (length) of the cylinder -->
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Assuming the collision cylinder is aligned with the link's frame -->
+  </collision> 
+    <visual>
+      <geometry>
+        <cylinder radius="0.01125" length="0.00935" />
+      </geometry>
+      <material name="wheel_axel"/>
+    </visual>
+  </link>
+
+<joint name="drive_wheel_to_axel_r" type="fixed">
+  <origin rpy="1.57 0 0" xyz="0.05175 0.073425 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_wheel_axel_r" />
+</joint>
+
+ <link name="drive_wheel_l">
+   <inertial>
+    <mass value="0.010" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <inertia ixx="2.986533333333334e-06" ixy="0" ixz="0" 
+             iyy="2.986533333333334e-06" iyz="0" izz="5.445e-06" />
+  </inertial>
+
+  <!-- Collision Properties -->
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <cylinder radius="0.033" length="0.0178" />
+    </geometry>
+  </collision>
+
+    <visual>
+      <geometry>
+        <cylinder radius="0.033" length="0.0178" />
+      </geometry>
+      <material name="wheel"/>
+    </visual>
+  </link>
+  <gazebo reference="drive_wheel_l">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+<joint name="drive_wheel_tire_to_axel_l" type="continuous">
+  <origin rpy="1.57 0 0" xyz="0.05175 -0.087 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_wheel_l"/>
+  <axis xyz="0 0 1"/>
+</joint>
+
+ <link name="drive_wheel_r">
+  <inertial>
+    <mass value="0.010" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <inertia ixx="2.986533333333334e-06" ixy="0" ixz="0" 
+             iyy="2.986533333333334e-06" iyz="0" izz="5.445e-06" />
+  </inertial>
+
+  <!-- Collision Properties -->
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <cylinder radius="0.033" length="0.0178" />
+    </geometry>
+  </collision>
+
+    <visual>
+      <geometry>
+        <cylinder radius="0.033" length="0.0178" />
+      </geometry>
+      <material name="wheel"/>
+    </visual>
+  </link>
+
+  <gazebo reference="drive_wheel_r">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+<joint name="drive_wheel_tire_to_axel_r" type="continuous">
+  <origin rpy="1.57 0 0" xyz="0.05175 0.087 0.01875" />
+  <parent link="chassis" />
+  <child link="drive_wheel_r"/> 
+  <axis xyz="0 0 1"/>
+</joint>
+
+<!-- Castor wheel -->
+ <link name="drive_castor_wheel_support">
+  <inertial>
+    <mass value="0.010" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <inertia ixx="3.233333333333333e-07" ixy="0" ixz="0" 
+             iyy="8.033333333333334e-07" iyz="0" izz="1.02e-06" />
+  </inertial>
+
+  <!-- Collision Properties -->
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.030 0.018 0.008" />
+    </geometry>
+  </collision> 
+    <visual>
+      <geometry>
+        <box size="0.030 0.018 0.008" />
+      </geometry>
+      <material name="castor_wheel_support"/>
+    </visual>
+  </link>
+
+<joint name="drive_castor_wheel_support_size" type="fixed">
+  <origin rpy="0 0 0" xyz="-0.05175 0 -0.009" />
+  <parent link="chassis" />
+  <child link="drive_castor_wheel_support"/> 
+</joint>
+
+  <!-- Caster Wheel Front -->
+  <link name="front_yaw_link">
+      <collision>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        <geometry>
+          <cylinder length="0.001" radius="0.0045000000000000005"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+          <mass value="0.001"/>
+          <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0" izz="1.0125000000000003e-08"/>
+      </inertial>  
+    <visual>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        <geometry>
+          <cylinder length="0.001" radius="0.005"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+  </link>
+
+    <gazebo reference="front_yaw_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+  <joint name="front_yaw_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 -0.004" />
+    <parent link="drive_castor_wheel_support" />
+    <child link="front_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <link name="front_roll_link">
+     <collision>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        <geometry>
+          <cylinder length="0.001" radius="0.0045000000000000005"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+          <mass value="0.001"/>
+          <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0" izz="1.0125000000000003e-08"/>
+      </inertial>  
+      <visual>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        <geometry>
+          <cylinder length="0.005" radius="0.005"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+  </link>
+
+    <gazebo reference="front_roll_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+  <joint name="front_roll_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="front_yaw_link" />
+    <child link="front_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <link name="front_pitch_link">
+    <collision>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.010"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        <mass value="0.001"/>
+        <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+    </inertial>  
+    <visual>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="green_dark"/>
+    </visual>
+  </link>
+
+  <gazebo reference="front_pitch_link">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+
+  <joint name="front_pitch_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="front_roll_link" />
+    <child link="front_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+
+<gazebo>
+    <plugin name="box_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+    <ros>
+        <remapping>~/out:=joint_states</remapping>
+    </ros>
+    <update_rate>30</update_rate>
+    <joint_name>drive_wheel_tire_to_axel_l</joint_name>
+    <joint_name>drive_wheel_tire_to_axel_r</joint_name>
+
+    <joint_name>front_yaw_joint</joint_name>
+    <joint_name>front_roll_joint</joint_name>
+    <joint_name>front_pitch_joint</joint_name>
+
+    </plugin>
+</gazebo>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <!-- wheels -->
+      <left_joint>drive_wheel_tire_to_axel_l</left_joint>
+      <right_joint>drive_wheel_tire_to_axel_r</right_joint>
+
+      <!-- kinematics -->
+      <wheel_separation>0.1</wheel_separation>
+      <wheel_diameter>0.07</wheel_diameter>
+
+      <!-- limits -->
+      <max_wheel_torque>1.0</max_wheel_torque>
+      <max_wheel_acceleration>2.0</max_wheel_acceleration>
+
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+
+    </plugin>
+  </gazebo>
+  
+</robot>

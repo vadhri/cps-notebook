@@ -1,0 +1,10 @@
+
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo start_world.launch.py
+
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.launch.xml
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
