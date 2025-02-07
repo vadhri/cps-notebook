@@ -1,0 +1,9 @@
+<?xml version='1.0' ?>
+<launch>
+    <!-- Publish URDF file in robot_description topic -->
+    <include file="$(find-pkg-share ros2_urdf_project_gazebo)/launch/visualize_control_complete_launch.real.py"/>
+    <!-- Read robot_description and spawn in gazebo running sim -->
+    <!-- <include file="$(find-pkg-share ros2_urdf_project_gazebo)/launch/spawn_robot_description.launch.py"/> -->
+    <!-- Load the controllers -->
+    <!-- <include file="$(find-pkg-share ros2_urdf_project_gazebo)/launch/control.launch.lidar.real.py"/> -->
+</launch>

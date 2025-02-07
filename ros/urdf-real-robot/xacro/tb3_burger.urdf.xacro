@@ -1,0 +1,406 @@
+<?xml version="1.0" ?>
+
+<robot name="turtlebot3_burger" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+ <xacro:arg name="use_sim" default="True" />
+  <link name="odom">
+  </link>
+  <link name="base_footprint">
+  </link>
+
+  <joint name="odom_base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="odom"/>
+    <child link="base_footprint"/>
+  </joint>
+
+  <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/tb3_burger_material.xacro" />
+
+  <!-- if we use Gazebo -->
+  
+  <xacro:if value="$(arg use_sim)">
+    <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/gazebo_materials.xacro" />
+    <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/gazebo_sensors.xacro" />
+    <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/gazebo_plugins.xacro" />
+  </xacro:if>
+
+  <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/chassis.xacro" />
+  <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/electronics.xacro" />
+  <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/wheel.xacro" />
+  <xacro:include filename="$(find ros2_urdf_project_gazebo)/xacro/sensors.xacro" />
+  
+
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+ <xacro:chassis_macro name="chassis"/>
+ <xacro:chassis_macro name="chassis1"/>
+ <xacro:chassis_macro name="chassis2"/>
+ <xacro:chassis_macro name="chassis3"/>
+  
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="chassis"/>
+  </joint>
+
+  <!-- Drive motor - 46.5mm x 34mm x 28.5mm -->
+  <xacro:drive_motor_macro name="drive_motor_1"/>
+  <xacro:drive_motor_macro name="drive_motor_2"/>
+
+  <joint name="chasis_left_drive_motor" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0455 0.05175 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_motor_1"/>
+  </joint>
+
+  <joint name="chasis_right_drive_motor" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0455 -0.05175 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_motor_2"/>
+  </joint>
+
+    <joint name="front_pitch_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="front_roll_link"/>
+    <child link="front_pitch_link"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" velocity="100.0"/>
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <joint name="chasis_battery" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01875 0 0.01825"/>
+    <parent link="chassis"/>
+    <child link="battery"/>
+  </joint>
+
+   <xacro:spacer_35mm_macro name="spacer_chasis_1_01"/>
+   <xacro:spacer_35mm_macro name="spacer_chasis_1_02"/>
+   <xacro:spacer_35mm_macro name="spacer_chasis_1_03"/>
+   <xacro:spacer_35mm_macro name="spacer_chasis_1_04"/>
+
+  <joint name="chasis_spacer_chasis_1_01" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 -0.025875 0.01825"/>
+    <parent link="chassis"/>
+    <child link="spacer_chasis_1_01"/>
+  </joint>
+ 
+
+  <joint name="chasis_spacer_chasis_1_02" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 0.025875 0.01825"/>
+    <parent link="chassis"/>
+    <child link="spacer_chasis_1_02"/>
+  </joint>
+
+
+  <joint name="chasis_spacer_chasis_1_03" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.06375 -0.06375 0.01825"/>
+    <parent link="chassis"/>
+    <child link="spacer_chasis_1_03"/>
+  </joint>
+
+
+  <joint name="chasis_spacer_chasis_1_04" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.06375 0.06375 0.01825"/>
+    <parent link="chassis"/>
+    <child link="spacer_chasis_1_04"/>
+  </joint>
+
+  <xacro:drive_wheel_axel_macro name="drive_wheel_axel_l"/>
+  <xacro:drive_wheel_axel_macro name="drive_wheel_axel_r"/>
+
+  <joint name="drive_wheel_to_axel_l" type="fixed">
+    <origin rpy="1.57 0 0" xyz="0.05175 -0.073425 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_wheel_axel_l"/>
+  </joint>
+
+  <joint name="drive_wheel_to_axel_r" type="fixed">
+    <origin rpy="1.57 0 0" xyz="0.05175 0.073425 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_wheel_axel_r"/>
+  </joint>
+
+  <xacro:drive_wheel_macro name="drive_wheel_l"/>
+  <xacro:drive_wheel_macro name="drive_wheel_r"/>
+
+  <joint name="drive_wheel_tire_to_axel_l" type="continuous">
+    <origin rpy="1.57 0 0" xyz="0.05175 -0.087 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_wheel_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10.0" velocity="10.0"/>
+    <dynamics damping="0.0" friction="0.1"/>      
+  </joint>
+
+  <joint name="drive_wheel_tire_to_axel_r" type="continuous">
+    <origin rpy="1.57 0 0" xyz="0.05175 0.087 0.01875"/>
+    <parent link="chassis"/>
+    <child link="drive_wheel_r"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100.0" velocity="100.0"/>
+    <dynamics damping="0.0" friction="0.1"/>      
+  </joint>
+
+  <joint name="drive_castor_wheel_support_size" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.05175 0 -0.009"/>
+    <parent link="chassis"/>
+    <child link="drive_castor_wheel_support"/>
+  </joint>
+
+  <joint name="front_yaw_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 -0.004"/>
+    <parent link="drive_castor_wheel_support"/>
+    <child link="front_yaw_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100.0" velocity="100.0"/>
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <joint name="front_roll_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="front_yaw_link"/>
+    <child link="front_roll_link"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="100.0" velocity="100.0"/>
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+  <joint name="chasis_to_chasis_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0405"/>
+    <parent link="chassis"/>
+    <child link="chassis1"/>
+  </joint>
+
+  <xacro:spacer_45mm_macro name="spacer_chasis_2_01"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_2_02"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_2_03"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_2_04"/>
+
+  <joint name="chasis_spacer_chasis_2_01" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 -0.010875 0.01825"/>
+    <parent link="chassis1"/>
+    <child link="spacer_chasis_2_01"/>
+  </joint>
+  
+  <joint name="chasis_spacer_chasis_2_02" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 0.010875 0.01825"/>
+    <parent link="chassis1"/>
+    <child link="spacer_chasis_2_02"/>
+  </joint>
+
+  <joint name="chasis_spacer_chasis_2_03" type="fixed">
+    <origin rpy="0 0 0" xyz="-0 -0.06375 0.01825"/>
+    <parent link="chassis1"/>
+    <child link="spacer_chasis_2_03"/>
+  </joint>
+
+  <joint name="chasis_spacer_chasis_2_04" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.06375 0.01825"/>
+    <parent link="chassis1"/>
+    <child link="spacer_chasis_2_04"/>
+  </joint>
+
+  <joint name="control_board_to_chasis_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0225"/>
+    <parent link="chassis1"/>
+    <child link="control_board"/>
+  </joint>
+
+  <xacro:pcb_mount_macro name="pcb_mount_01"/>
+  <xacro:pcb_mount_macro name="pcb_mount_02"/>
+  <xacro:pcb_mount_macro name="pcb_mount_03"/>
+  <xacro:pcb_mount_macro name="pcb_mount_04"/>
+
+  <joint name="pcb_01_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0321 0.0325 0.0095"/>
+    <parent link="chassis1"/>
+    <child link="pcb_mount_01"/>
+  </joint>
+
+  <joint name="pcb_02_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.0321 0.0325 0.0095"/>
+    <parent link="chassis1"/>
+    <child link="pcb_mount_02"/>
+  </joint>
+
+  <joint name="pcb_03_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0321 -0.0325 0.0095"/>
+    <parent link="chassis1"/>
+    <child link="pcb_mount_03"/>
+  </joint>
+
+  <joint name="pcb_04_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.0321 -0.0325 0.0095"/>
+    <parent link="chassis1"/>
+    <child link="pcb_mount_04"/>
+  </joint>
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+  <joint name="chasis_1_to_chasis_2" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0405"/>
+    <parent link="chassis1"/>
+    <child link="chassis2"/>
+  </joint>
+
+  <xacro:spacer_45mm_macro name="spacer_chasis_3_01"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_3_02"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_3_03"/>
+  <xacro:spacer_45mm_macro name="spacer_chasis_3_04"/>
+
+  <joint name="chasis_spacer_chasis_3_01" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 -0.025875 0.01825"/>
+    <parent link="chassis2"/>
+    <child link="spacer_chasis_3_01"/>
+  </joint>
+
+  <joint name="chasis_spacer_chasis_3_02" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06375 0.025875 0.01825"/>
+    <parent link="chassis2"/>
+    <child link="spacer_chasis_3_02"/>
+  </joint>
+
+  <joint name="chasis_spacer_chasis_3_03" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.06375 -0.06375 0.01825"/>
+    <parent link="chassis2"/>
+    <child link="spacer_chasis_3_03"/>
+  </joint>
+
+  <joint name="chasis_spacer_chasis_3_04" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.06375 0.06375 0.01825"/>
+    <parent link="chassis2"/>
+    <child link="spacer_chasis_3_04"/>
+  </joint>
+
+  <joint name="lidar_usb_board_to_chasis_2" type="fixed">
+    <origin rpy="0 0 0" xyz="0.035 0 0.00674"/>
+    <parent link="chassis2"/>
+    <child link="lidar_usb_board"/>
+  </joint>
+
+  <joint name="rsb_board_to_chasis_1" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.025 0 0.0225"/>
+    <parent link="chassis2"/>
+    <child link="rsb_board"/>
+  </joint>
+
+  <xacro:pcb_mount_macro name="rsb_mount_01"/>
+  <xacro:pcb_mount_macro name="rsb_mount_02"/>
+  <xacro:pcb_mount_macro name="rsb_mount_03"/>
+  <xacro:pcb_mount_macro name="rsb_mount_04"/>
+
+  <joint name="rsb_01_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01491 0.0325 0.0095"/>
+    <parent link="chassis2"/>
+    <child link="rsb_mount_01"/>
+  </joint>
+
+  <joint name="rsb_02_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.03509 0.0325 0.0095"/>
+    <parent link="chassis2"/>
+    <child link="rsb_mount_02"/>
+  </joint>
+
+  <joint name="rsb_03_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01491 -0.0325 0.0095"/>
+    <parent link="chassis2"/>
+    <child link="rsb_mount_03"/>
+  </joint>
+
+  <joint name="rsb_04_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.03509 -0.0325 0.0095"/>
+    <parent link="chassis2"/>
+    <child link="rsb_mount_04"/>
+  </joint>
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+
+  <joint name="chasis_2_to_chasis_3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0405"/>
+    <parent link="chassis2"/>
+    <child link="chassis3"/>
+  </joint>
+
+  <joint name="lidar_board_to_chasis_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0225"/>
+    <parent link="chassis3"/>
+    <child link="lidar_board"/>
+  </joint>
+
+  <xacro:pcb_mount_macro name="lidar_mount_01"/>
+  <xacro:pcb_mount_macro name="lidar_mount_02"/>
+  <xacro:pcb_mount_macro name="lidar_mount_03"/>
+  <xacro:pcb_mount_macro name="lidar_mount_04"/>
+
+  <joint name="lidar_01_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01009 0.0325 0.0095"/>
+    <parent link="chassis3"/>
+    <child link="lidar_mount_01"/>
+  </joint>
+
+  <joint name="lidar_02_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01009 0.0325 0.0095"/>
+    <parent link="chassis3"/>
+    <child link="lidar_mount_02"/>
+  </joint>
+
+  <joint name="lidar_03_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01009 -0.0325 0.0095"/>
+    <parent link="chassis3"/>
+    <child link="lidar_mount_03"/>
+  </joint>
+
+  <joint name="lidar_04_to_controlboard" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.01009 -0.0325 0.0095"/>
+    <parent link="chassis3"/>
+    <child link="lidar_mount_04"/>
+  </joint>
+
+    <joint name="laser_scan_link_joint" type="prismatic">
+        <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+        <parent link="chassis3"/>
+        <child link="laser_scan_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-0.1" upper="0.0" effort="20.0" velocity="2.0"/>
+        <dynamics damping="0.1" friction="1.0"/>
+    </joint>
+
+     <joint name="laser_scan_model_link_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+        <parent link="laser_scan_link"/>
+        <child link="laser_scan_model_link"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10.0" velocity="2.0"/>
+        <dynamics friction="0.01"/>
+    </joint>
+
+  <xacro:if value="$(arg use_sim)">
+    <joint name="laser_scan_frame_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0.03"/>
+        <parent link="laser_scan_link"/>
+        <child link="laser_scan_frame"/>
+        <axis xyz="0 0 0"/>
+    </joint> 
+    <joint name="rgb_camera_link_frame_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.07375 0.0 0.005"/>
+        <parent link="chassis2"/>
+        <child link="rgb_camera_link_frame"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+  </xacro:if>
+    <joint name="pointcloud_link_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.07375 0.0 0.005"/>
+        <parent link="chassis2"/>
+        <child link="pointcloud_link"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+
+  <link name="imu_link"/>
+
+  <link name="pointcloud_link">
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="chassis3"/>
+    <child link="imu_link"/>
+    <origin rpy="0 0 0" xyz="-0.10 0 0.05"/>
+  </joint>
+</robot>

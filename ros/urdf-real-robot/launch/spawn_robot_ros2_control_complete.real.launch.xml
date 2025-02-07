@@ -1,0 +1,6 @@
+<?xml version='1.0' ?>
+<launch>
+    <include file="$(find-pkg-share ros2_urdf_project)/launch/urdf_visualize_control_complete.launch.py"/>
+    <!-- <include file="$(find-pkg-share ros2_urdf_project_gazebo)/launch/spawn_robot_description.real.launch.py"/> -->
+    <include file="$(find-pkg-share ros2_urdf_project_gazebo)/launch/control.launch.lidar.py"/>
+</launch>

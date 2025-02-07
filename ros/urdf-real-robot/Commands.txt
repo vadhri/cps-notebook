@@ -1,0 +1,47 @@
+
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo start_world.launch.py
+
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.launch.xml
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+mkdir -p ~/.gazebo/models/ros2_urdf_project_gazebo/meshes/sensors/ 
+cp -rfv src/ros2_urdf_project_gazebo/meshes/sensors/* ~/.gazebo/models/ros2_urdf_project_gazebo/meshes/sensors/
+
+ros2 run tf2_tools view_frames
+
+
+Real robot
+-----
+
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.real.launch.xml
+
+With xacro (sim)
+-------
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.launch.xacro.xml
+
+With xacro (real)
+-------
+cd ~/ros2_ws/
+colcon build; source install/setup.bash
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.launch.xacro.real.xml
+
+
+Launch gazebo simulator
+-----
+
+source ~/simulation_ws/install/setup.bash
+ros2 launch turtlebot3_gazebo main_turtlebot3_lab.launch.xml
+
+publish states
+---
+
+ros2 run joint_state_publisher_gui joint_state_publisher_gui

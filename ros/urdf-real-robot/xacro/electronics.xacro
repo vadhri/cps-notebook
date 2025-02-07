@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- chassis 137.5mm x 137.5mm x 9mm -->
+  <xacro:property name="drive_motor_width" value="0.0465"/>
+  <xacro:property name="drive_motor_length" value="0.034"/>
+  <xacro:property name="drive_motor_height" value="0.0285"/>
+  <xacro:property name="drive_motor_mass" value="0.050"/>  
+
+  <xacro:macro name="drive_motor_macro" params="name">
+  <link name="${name}">
+    <inertial>
+      <mass value="${drive_motor_mass}"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- Center of mass assumed at the origin -->
+      <inertia ixx="8.201041666666668e-06" ixy="0" ixz="0" iyy="1.239375e-05" iyz="0" izz="1.3826041666666666e-05"/>
+    </inertial>
+    <!-- Collision Block -->
+    <collision>
+      <geometry>
+        <box size="${drive_motor_width} ${drive_motor_length} ${drive_motor_height}"/>
+        <!-- Width, Depth, Height -->
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- Assuming the collision box is aligned with the link's frame -->
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${drive_motor_width} ${drive_motor_length} ${drive_motor_height}"/>
+      </geometry>
+      <material name="drive_motor"/>
+    </visual>
+
+  </link>
+    </xacro:macro>
+
+  <link name="control_board">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.060"/>
+      <inertia ixx="2.9405e-05" ixy="0.0" ixz="0.0" iyy="5.6405e-05" iyz="0.0" izz="8.325e-05"/>
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.105 0.075 0.016"/>
+      </geometry>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.105 0.075 0.016"/>
+      </geometry>
+      <material name="box_bot_blue"/>
+    </visual>
+  </link>
+
+  
+  <link name="lidar_usb_board">
+    <!-- Inertial Properties -->
+    <inertial>
+      <mass value="0.010"/>
+      <!-- Mass of the Lidar USB board -->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- Center of mass at the origin -->
+      <inertia ixx="7.66875e-07" ixy="0.0" ixz="0.0" iyy="2.86875e-07" iyz="0.0" izz="1.02e-06"/>
+      <!-- Moments of inertia -->
+    </inertial>
+    <!-- Collision Block -->
+    <collision>
+      <geometry>
+        <box size="0.018 0.030 0.0045"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <!-- Visual Block -->
+    <visual>
+      <geometry>
+        <box size="0.018 0.030 0.0045"/>
+      </geometry>
+      <material name="maroon"/>
+    </visual>
+  </link>
+
+  <link name="rsb_board">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.050"/>
+      <inertia ixx="3.5310093750000004e-05" ixy="0" ixz="0" iyy="1.5576760416666668e-05" iyz="0" izz="4.7766666666666664e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.058 0.090 0.01935"/>
+      </geometry>
+      <material name="default_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.058 0.090 0.01935"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lidar_board">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.050"/>
+      <inertia ixx="3.5310093750000004e-05" ixy="0" ixz="0" iyy="1.5576760416666668e-05" iyz="0" izz="4.7766666666666664e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://ros2_urdf_project_gazebo/meshes/sensors/lds_base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.058 0.090 0.01935"/>
+      </geometry>
+    </collision>
+  </link>
+  
+
+  </robot>

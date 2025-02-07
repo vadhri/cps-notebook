@@ -1,0 +1,15 @@
+killall ros2
+killall rviz2
+killall robot_state_publisher
+sleep 2
+cd ~/ros2_ws/
+mkdir -p ~/.gazebo/models/ros2_urdf_project_gazebo/meshes/sensors/ 
+cp -rfv src/ros2_urdf_project_gazebo/meshes/sensors/* ~/.gazebo/models/ros2_urdf_project_gazebo/meshes/sensors/
+cd ~/ros2_ws/
+source ~/simulation_ws/install/setup.bash
+ros2 launch turtlebot3_gazebo main_turtlebot3_lab.launch.xml &
+colcon build; source install/setup.bash
+sleep 5;
+ros2 launch ros2_urdf_project_gazebo spawn_robot_ros2_control_complete.launch.xacro.xml 
+
+

@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo reference="spacer_chasis_1_01">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_1_02">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_1_03">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_1_04">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+   <gazebo reference="spacer_chasis_2_01">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_02">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_03">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_04">
+    <material>Gazebo/Orange</material>
+  </gazebo> 
+  <gazebo reference="spacer_chasis_3_01">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_3_02">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_3_03">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_3_04">
+    <material>Gazebo/Orange</material>
+  </gazebo>  
+  <gazebo reference="drive_wheel_r">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="drive_wheel_l">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>  
+  <gazebo reference="front_yaw_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="front_roll_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="front_pitch_link">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <material>Gazebo/Purple</material>
+  </gazebo>
+
+   <gazebo reference="spacer_chasis_2_01">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_02">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_03">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="spacer_chasis_2_04">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="control_board">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+  <gazebo reference="lidar_usb_board">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="battery">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  
+  <gazebo reference="lidar_board">
+    <material>Gazebo/Indigo</material>
+  </gazebo>
+
+  <gazebo reference="battery">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+
+  <gazebo reference="laser_scan_model_link">
+    <material>Gazebo/BlueLaser</material>
+  </gazebo>       
+    
+  <gazebo reference="drive_motor_1">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="drive_motor_2">
+    <material>Gazebo/Red</material>
+  </gazebo>  
+  
+  <gazebo reference="rsb_board">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="chassis">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="chassis1">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="chassis2">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="chassis3">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+ <gazebo reference="pcb_mount_01">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+ <gazebo reference="pcb_mount_02">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+ <gazebo reference="pcb_mount_03">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+  <gazebo reference="pcb_mount_04">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+   <gazebo reference="rsb_mount_01">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+ <gazebo reference="rsb_mount_02">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+ <gazebo reference="rsb_mount_03">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+  <gazebo reference="rsb_mount_04">
+    <material>Gazebo/ZincYellow</material>
+  </gazebo>
+
+  <gazebo reference="drive_motor">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+</robot>
